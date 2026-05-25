@@ -75,7 +75,7 @@ db.ref("players").on("value", snap => {
       let score = p.score || 0;
 
       // 0 → lijevo, 100 → desno
-      let width = score * 10;
+      let width = score * 1;
 
       if(width < 0) width = 0;
       if(width > 100) width = 100;

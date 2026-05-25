@@ -39,6 +39,9 @@ window.addEventListener("load", () => {
     const admin = document.getElementById("admin");
     if (admin) admin.style.display = "block";
   }
+  else{
+    document.getElementById("admin").style.display = "block";
+  }
 });
 
 /* ================= JOIN ================= */
@@ -58,6 +61,9 @@ function join(){
 
   if(window.innerWidth > 900){
     document.getElementById("admin").style.display = "block";
+  }
+  else{
+    document.getElementById("admin").style.display = "none";
   }
 }
 
@@ -118,7 +124,7 @@ db.ref("players").on("value", snap => {
             <div class="bar" style="width:${width}%"></div>
           </div>
 
-          <div class="score">${score}/30</div>
+          <div class="score">${score}</div>
         </div>
       `;
     });

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>Razredni Kviz Firebase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🎯 Razredni Kviz</h1>
+
+<div class="join">
+  <input id="name" placeholder="Upiši ime">
+  <button onclick="join()">Ulaz</button>
+</div>
+
+<div class="buttons" id="buttons">
+  <button class="green" onclick="vote('plus')">+1</button>
+  <button class="red" onclick="vote('minus')">-1</button>
+</div>
+
+<div class="players" id="players"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>

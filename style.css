@@ -43,14 +43,13 @@ button{
 #admin{
   text-align:center;
   margin:10px;
-  display:block;
+  display:none;
 }
 
 #admin button{
   background:#f97316;
   color:white;
   font-weight:bold;
-  display:block;
 }
 
 /* BOARD */

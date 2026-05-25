@@ -13,6 +13,7 @@ const db = firebase.database();
 
 let myName = "";
 
+/* ============ JOIN ============ */
 function join(){
   myName = document.getElementById("name").value.trim();
   if(!myName) return;
@@ -24,14 +25,21 @@ function join(){
 
   document.getElementById("login").style.display = "none";
   document.getElementById("controls").style.display = "block";
+
+  // ako je desktop/projektor → admin vidi reset
+  if(window.innerWidth > 800){
+    document.getElementById("admin").style.display = "block";
+  }
 }
 
+/* ============ VOTE ============ */
 function vote(val){
   const ref = db.ref("players/" + myName);
 
   ref.get().then(snap => {
     let data = snap.val();
-    let newScore = (data.score || 0) + val;
+
+    let newScore = (data?.score || 0) + val;
 
     db.ref("players/" + myName).update({
       score: newScore
@@ -39,7 +47,12 @@ function vote(val){
   });
 }
 
-// LIVE BOARD (projektor)
+/* ============ RESET ============ */
+function resetAll(){
+  db.ref("players").remove();
+}
+
+/* ============ LIVE BOARD ============ */
 db.ref("players").on("value", snap => {
   const data = snap.val();
   const board = document.getElementById("board");
@@ -52,15 +65,24 @@ db.ref("players").on("value", snap => {
     .sort((a,b) => b.score - a.score)
     .forEach(p => {
 
-      const width = Math.max(0, Math.min(100, 50 + p.score * 5));
+      // NORMALIZACIJA 0–100
+      // (ograničavamo da ne ode u beskonačno)
+      let score = p.score || 0;
+
+      let width = 50 + score * 10;
+
+      if(width < 0) width = 0;
+      if(width > 100) width = 100;
 
       board.innerHTML += `
         <div class="row">
           <div class="name">${p.name}</div>
+
           <div class="bar-wrap">
             <div class="bar" style="width:${width}%"></div>
           </div>
-          <div class="score">${p.score}</div>
+
+          <div class="score">${score}</div>
         </div>
       `;
     });

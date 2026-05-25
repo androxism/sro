@@ -50,6 +50,7 @@ button{
   background:#f97316;
   color:white;
   font-weight:bold;
+  display:block;
 }
 
 /* BOARD */

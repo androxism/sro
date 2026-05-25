@@ -26,7 +26,7 @@ function join(){
   document.getElementById("login").style.display = "none";
   document.getElementById("controls").style.display = "block";
 
-  // 👉 RESET BUTTON ONLY FOR LARGE SCREEN
+  // 👉 admin (projektor mode)
   const isBigScreen = window.innerWidth > 900;
 
   if(isBigScreen){
@@ -34,7 +34,7 @@ function join(){
   }
 }
 
-/* ================= VOTE ================= */
+/* ================= VOTE (+1 / -1) ================= */
 function vote(val){
   const ref = db.ref("players/" + myName);
 
@@ -43,16 +43,20 @@ function vote(val){
 
     let newScore = (data?.score || 0) + val;
 
+    // 🔒 clamp 0–30
+    if(newScore < 0) newScore = 0;
+    if(newScore > 30) newScore = 30;
+
     db.ref("players/" + myName).update({
       score: newScore
     });
   });
 }
 
-/* ================= RESET ================= */
+/* ================= RESET (PROJECTOR ONLY) ================= */
 function resetAll(){
 
-  const ok = confirm("Obrisati sve učenike i bodove?");
+  const ok = confirm("Jesi siguran da želiš obrisati sve učenike i bodove?");
 
   if(!ok) return;
 
@@ -74,11 +78,12 @@ db.ref("players").on("value", snap => {
 
       let score = p.score || 0;
 
-      // 0 → lijevo, 100 → desno
-      let width = score * 10;
+      // 🔒 sigurnost clamp
+      if(score < 0) score = 0;
+      if(score > 30) score = 30;
 
-      if(width < 0) width = 0;
-      if(width > 100) width = 100;
+      // 📊 0 → 0%, 30 → 100%
+      let width = (score / 30) * 100;
 
       board.innerHTML += `
         <div class="row">
@@ -88,7 +93,7 @@ db.ref("players").on("value", snap => {
             <div class="bar" style="width:${width}%"></div>
           </div>
 
-          <div class="score">${score}</div>
+          <div class="score">${score}/30</div>
         </div>
       `;
     });

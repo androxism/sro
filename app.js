@@ -20,7 +20,11 @@ function updateAdminVisibility(){
 
   const isDesktop = window.matchMedia("(min-width: 900px)").matches;
 
-  admin.style.display = isDesktop ? "block" : "none";
+  if(isDesktop){
+    admin.style.display = "block";
+  } else {
+    admin.style.display = "none";
+  }
 }
 
 /* ================= AUTO RESTORE ================= */

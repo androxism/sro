@@ -45,7 +45,7 @@ function vote(val){
 
     // 🔒 clamp 0–30
     if(newScore < 0) newScore = 0;
-    if(newScore > 30) newScore = 30;
+    if(newScore > 40) newScore = 40;
 
     db.ref("players/" + myName).update({
       score: newScore
@@ -80,10 +80,10 @@ db.ref("players").on("value", snap => {
 
       // 🔒 sigurnost clamp
       if(score < 0) score = 0;
-      if(score > 30) score = 30;
+      if(score > 40) score = 40;
 
       // 📊 0 → 0%, 30 → 100%
-      let width = (score / 30) * 100;
+      let width = (score / 40) * 100;
 
       board.innerHTML += `
         <div class="row">

@@ -2,24 +2,23 @@
 <html lang="hr">
 <head>
   <meta charset="UTF-8">
-  <title>Razredni Kviz Firebase</title>
+  <title>Razredni Live Bar</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🎯 Razredni Kviz</h1>
-
-<div class="join">
-  <input id="name" placeholder="Upiši ime">
+<div id="login">
+  <h1>Upiši ime</h1>
+  <input id="name">
   <button onclick="join()">Ulaz</button>
 </div>
 
-<div class="buttons" id="buttons">
-  <button class="green" onclick="vote('plus')">+1</button>
-  <button class="red" onclick="vote('minus')">-1</button>
+<div id="controls" style="display:none;">
+  <button class="plus" onclick="vote(1)">+1</button>
+  <button class="minus" onclick="vote(-1)">-1</button>
 </div>
 
-<div class="players" id="players"></div>
+<div id="board"></div>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>

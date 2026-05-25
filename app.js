@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "XXX",
-  authDomain: "XXX",
-  databaseURL: "XXX",
-  projectId: "XXX",
-  storageBucket: "XXX",
-  messagingSenderId: "XXX",
-  appId: "XXX"
+  apiKey: "AIzaSyDQfAxP2lQLlv0HHcO8EodpfbBZC_lFhFM",
+  authDomain: "sro-test-85608.firebaseapp.com",
+  databaseURL: "https://sro-test-85608-default-rtdb.firebaseio.com",
+  projectId: "sro-test-85608",
+  storageBucket: "sro-test-85608.firebasestorage.app",
+  messagingSenderId: "1079740587419",
+  appId: "1:1079740587419:web:aca3d8cda6e1588c5dd53e"
 };
 
 firebase.initializeApp(firebaseConfig);

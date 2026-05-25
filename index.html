@@ -2,22 +2,31 @@
 <html lang="hr">
 <head>
   <meta charset="UTF-8">
-  <title>Razredni Live Bar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Razredni Kviz</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="login">
   <h1>Upiši ime</h1>
-  <input id="name">
+  <input id="name" placeholder="Ime">
   <button onclick="join()">Ulaz</button>
 </div>
 
+<!-- STUDENT CONTROLS -->
 <div id="controls" style="display:none;">
   <button class="plus" onclick="vote(1)">+1</button>
   <button class="minus" onclick="vote(-1)">-1</button>
 </div>
 
+<!-- ADMIN (samo projektor / desktop) -->
+<div id="admin" style="display:none;">
+  <button onclick="resetAll()">RESET SVE</button>
+</div>
+
+<!-- BOARD -->
 <div id="board"></div>
 
 <!-- Firebase -->
@@ -25,5 +34,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script src="app.js"></script>
+
 </body>
 </html>

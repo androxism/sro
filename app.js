@@ -13,56 +13,55 @@ const db = firebase.database();
 
 let myName = "";
 
-function join() {
-  myName = document.getElementById("name").value;
-
-  if (!myName) return;
+function join(){
+  myName = document.getElementById("name").value.trim();
+  if(!myName) return;
 
   db.ref("players/" + myName).set({
     name: myName,
-    status: "none"
+    score: 0
   });
 
-  document.getElementById("buttons").style.display = "flex";
+  document.getElementById("login").style.display = "none";
+  document.getElementById("controls").style.display = "block";
 }
 
-function vote(type) {
-  if (!myName) return;
+function vote(val){
+  const ref = db.ref("players/" + myName);
 
-  db.ref("players/" + myName).update({
-    status: type
+  ref.get().then(snap => {
+    let data = snap.val();
+    let newScore = (data.score || 0) + val;
+
+    db.ref("players/" + myName).update({
+      score: newScore
+    });
   });
 }
 
-// realtime update
+// LIVE BOARD (projektor)
 db.ref("players").on("value", snap => {
   const data = snap.val();
-  const box = document.getElementById("players");
+  const board = document.getElementById("board");
 
-  box.innerHTML = "";
+  board.innerHTML = "";
 
-  if (!data) return;
+  if(!data) return;
 
-  Object.values(data).forEach(p => {
+  Object.values(data)
+    .sort((a,b) => b.score - a.score)
+    .forEach(p => {
 
-    let color = "gray";
-    let icon = "⬜";
+      const width = Math.max(0, Math.min(100, 50 + p.score * 5));
 
-    if (p.status === "plus") {
-      color = "green";
-      icon = "🟩";
-    }
-
-    if (p.status === "minus") {
-      color = "red";
-      icon = "🟥";
-    }
-
-    box.innerHTML += `
-      <div class="player ${color}">
-        <span>${p.name}</span>
-        <span>${icon}</span>
-      </div>
-    `;
-  });
+      board.innerHTML += `
+        <div class="row">
+          <div class="name">${p.name}</div>
+          <div class="bar-wrap">
+            <div class="bar" style="width:${width}%"></div>
+          </div>
+          <div class="score">${p.score}</div>
+        </div>
+      `;
+    });
 });

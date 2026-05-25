@@ -39,38 +39,76 @@ button{
   color:white;
 }
 
-/* BOARD */
-#board{
-  padding:20px;
+/* ADMIN */
+#admin{
+  text-align:center;
+  margin:10px;
 }
 
+#admin button{
+  background:#f97316;
+  color:white;
+  font-weight:bold;
+}
+
+/* BOARD */
+#board{
+  padding:10px;
+}
+
+/* ROW */
 .row{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .name{
   width:120px;
+  font-size:16px;
 }
 
+/* BAR */
 .bar-wrap{
   flex:1;
   background:#1f2937;
-  height:20px;
+  height:18px;
   border-radius:10px;
   overflow:hidden;
 }
 
 .bar{
   height:100%;
+  width:0%; /* START OD NULE */
   background:linear-gradient(90deg,#22c55e,#3b82f6);
-  width:50%;
   transition:0.3s;
 }
 
+/* SCORE */
 .score{
   width:40px;
   text-align:right;
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 700px){
+
+  .row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .name{
+    width:auto;
+    font-size:18px;
+  }
+
+  .score{
+    width:auto;
+  }
+
+  .bar-wrap{
+    width:100%;
+  }
 }

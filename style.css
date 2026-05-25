@@ -23,30 +23,15 @@ button{
   cursor:pointer;
 }
 
-/* CONTROLS */
-#controls{
-  display:flex;
-  width:100vw;
-  height:50vh;
-  margin:0;
-}
-
-#controls button{
-  width:50%;
-  border:none;
-  font-size:120px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.plus{
-  background:#16a34a;
-  color:white;
-}
-
-.minus{
-  background:#dc2626;
-  color:white;
+/* CONTROLS */ 
+#controls{ 
+  text-align:center; margin:20px; 
+} 
+.plus{ 
+  background:#16a34a; color:white; 
+} 
+.minus{ 
+  background:#dc2626; color:white; 
 }
 
 /* ADMIN */

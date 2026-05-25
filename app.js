@@ -24,7 +24,7 @@ function join(){
   });
 
   document.getElementById("login").style.display = "none";
-  document.getElementById("controls").style.display = "block";
+  document.getElementById("controls").style.display = "flex";
 
   // 👉 admin (projektor mode)
   const isBigScreen = window.innerWidth > 900;

@@ -25,13 +25,16 @@ button{
 
 /* CONTROLS */ 
 #controls{ 
-  text-align:center; margin:20px; 
+  text-align:center; 
+  margin:20px; 
 } 
 .plus{ 
-  background:#16a34a; color:white; 
+  background:#16a34a; 
+  color:white; 
 } 
 .minus{ 
-  background:#dc2626; color:white; 
+  background:#dc2626; 
+  color:white; 
 }
 
 /* ADMIN */

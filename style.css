@@ -43,6 +43,7 @@ button{
 #admin{
   text-align:center;
   margin:10px;
+  display:block;
 }
 
 #admin button{
@@ -98,6 +99,10 @@ button{
 
   .name{
     width:auto;
+  }
+
+  #admin{
+    display:none;
   }
 
   .bar-wrap{

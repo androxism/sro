@@ -1,12 +1,12 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDQfAxP2lQLlv0HHcO8EodpfbBZC_lFhFM",
-    authDomain: "sro-test-85608.firebaseapp.com",
-    databaseURL: "https://sro-test-85608-default-rtdb.firebaseio.com",
-    projectId: "sro-test-85608",
-    storageBucket: "sro-test-85608.firebasestorage.app",
-    messagingSenderId: "1079740587419",
-    appId: "1:1079740587419:web:aca3d8cda6e1588c5dd53e"
-  };
+  apiKey: "AIzaSyDQfAxP2lQLlv0HHcO8EodpfbBZC_lFhFM",
+  authDomain: "sro-test-85608.firebaseapp.com",
+  databaseURL: "https://sro-test-85608-default-rtdb.firebaseio.com",
+  projectId: "sro-test-85608",
+  storageBucket: "sro-test-85608.firebasestorage.app",
+  messagingSenderId: "1079740587419",
+  appId: "1:1079740587419:web:aca3d8cda6e1588c5dd53e"
+};
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
@@ -26,7 +26,7 @@ function join(){
   document.getElementById("login").style.display = "none";
   document.getElementById("controls").style.display = "block";
 
-  // 👉 RESET BUTTON ONLY FOR LARGE SCREEN
+  // 👉 admin (projektor mode)
   const isBigScreen = window.innerWidth > 900;
 
   if(isBigScreen){
@@ -34,7 +34,7 @@ function join(){
   }
 }
 
-/* ================= VOTE ================= */
+/* ================= VOTE (+1 / -1) ================= */
 function vote(val){
   const ref = db.ref("players/" + myName);
 
@@ -43,7 +43,7 @@ function vote(val){
 
     let newScore = (data?.score || 0) + val;
 
-    // 🔒 clamp 0–80
+    // 🔒 clamp 0–30
     if(newScore < 0) newScore = 0;
     if(newScore > 30) newScore = 30;
 
@@ -53,10 +53,10 @@ function vote(val){
   });
 }
 
-/* ================= RESET ================= */
+/* ================= RESET (PROJECTOR ONLY) ================= */
 function resetAll(){
 
-  const ok = confirm("Obrisati sve učenike i bodove?");
+  const ok = confirm("Jesi siguran da želiš obrisati sve učenike i bodove?");
 
   if(!ok) return;
 
@@ -78,11 +78,11 @@ db.ref("players").on("value", snap => {
 
       let score = p.score || 0;
 
-      // 🔒 sigurnost
+      // 🔒 sigurnost clamp
       if(score < 0) score = 0;
       if(score > 30) score = 30;
 
-      // 📊 0 → 0%, 80 → 100%
+      // 📊 0 → 0%, 30 → 100%
       let width = (score / 30) * 100;
 
       board.innerHTML += `
@@ -93,7 +93,7 @@ db.ref("players").on("value", snap => {
             <div class="bar" style="width:${width}%"></div>
           </div>
 
-          <div class="score">${score}</div>
+          <div class="score">${score}/30</div>
         </div>
       `;
     });

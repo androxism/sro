@@ -50,6 +50,8 @@ window.addEventListener("load", () => {
   updateAdminVisibility();
 });
 
+document.getElementById("login").style.display = "block";
+
 /* ================= RESIZE FIX ================= */
 window.addEventListener("resize", updateAdminVisibility);
 

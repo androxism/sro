@@ -13,19 +13,28 @@ const db = firebase.database();
 
 let myName = "";
 
-/* ================= AUTO RESTORE SESSION ================= */
+/* ================= ADMIN VISIBILITY ================= */
+function updateAdminVisibility(){
+  const admin = document.getElementById("admin");
+  if(!admin) return;
+
+  const isDesktop = window.matchMedia("(min-width: 900px)").matches;
+
+  admin.style.display = isDesktop ? "block" : "none";
+}
+
+/* ================= AUTO RESTORE ================= */
 window.addEventListener("load", () => {
   const savedName = localStorage.getItem("quiz_name");
 
-  if (savedName) {
+  if(savedName){
     myName = savedName;
 
     document.getElementById("login").style.display = "none";
     document.getElementById("controls").style.display = "block";
 
-    // ako user već postoji, samo ga “osiguraj”
     db.ref("players/" + myName).once("value").then(snap => {
-      if (!snap.exists()) {
+      if(!snap.exists()){
         db.ref("players/" + myName).set({
           name: myName,
           score: 0
@@ -34,15 +43,11 @@ window.addEventListener("load", () => {
     });
   }
 
-  // admin (projektor mode)
-  if (window.innerWidth > 900) {
-    const admin = document.getElementById("admin");
-    if (admin) admin.style.display = "block";
-  }
-  else{
-    document.getElementById("admin").style.display = "block";
-  }
+  updateAdminVisibility();
 });
+
+/* ================= RESIZE FIX ================= */
+window.addEventListener("resize", updateAdminVisibility);
 
 /* ================= JOIN ================= */
 function join(){
@@ -59,12 +64,7 @@ function join(){
   document.getElementById("login").style.display = "none";
   document.getElementById("controls").style.display = "block";
 
-  if(window.innerWidth > 900){
-    document.getElementById("admin").style.display = "block";
-  }
-  else{
-    document.getElementById("admin").style.display = "none";
-  }
+  updateAdminVisibility();
 }
 
 /* ================= VOTE (+1 / -1) ================= */
@@ -79,8 +79,8 @@ function vote(val){
     let newScore = (data?.score || 0) + val;
 
     // clamp 0–30
-    if (newScore < 0) newScore = 0;
-    if (newScore > 30) newScore = 30;
+    if(newScore < 0) newScore = 0;
+    if(newScore > 30) newScore = 30;
 
     db.ref("players/" + myName).update({
       score: newScore
@@ -88,7 +88,7 @@ function vote(val){
   });
 }
 
-/* ================= RESET (ONLY PROJECTOR) ================= */
+/* ================= RESET (PROJECTOR ONLY) ================= */
 function resetAll(){
   const ok = confirm("Obrisati sve učenike i bodove?");
   if(!ok) return;
@@ -124,7 +124,7 @@ db.ref("players").on("value", snap => {
             <div class="bar" style="width:${width}%"></div>
           </div>
 
-          <div class="score">${score}</div>
+          <div class="score">${score}/30</div>
         </div>
       `;
     });

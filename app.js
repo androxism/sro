@@ -43,6 +43,10 @@ function vote(val){
 
     let newScore = (data?.score || 0) + val;
 
+    // 🔒 clamp 0–80
+    if(newScore < 0) newScore = 0;
+    if(newScore > 80) newScore = 80;
+
     db.ref("players/" + myName).update({
       score: newScore
     });
@@ -74,11 +78,12 @@ db.ref("players").on("value", snap => {
 
       let score = p.score || 0;
 
-      // 0 → lijevo, 100 → desno
-      let width = score * 1;
+      // 🔒 sigurnost
+      if(score < 0) score = 0;
+      if(score > 80) score = 80;
 
-      if(width < 0) width = 0;
-      if(width > 100) width = 100;
+      // 📊 0 → 0%, 80 → 100%
+      let width = (score / 80) * 100;
 
       board.innerHTML += `
         <div class="row">
@@ -88,7 +93,7 @@ db.ref("players").on("value", snap => {
             <div class="bar" style="width:${width}%"></div>
           </div>
 
-          <div class="score">${score}</div>
+          <div class="score">${score}/80</div>
         </div>
       `;
     });

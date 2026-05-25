@@ -1,9 +1,14 @@
 body{
-  font-family: Arial;
-  background:#0f172a;
+  margin:0;
+  font-family:Arial;
+  background:#0b1220;
   color:white;
+}
+
+/* LOGIN */
+#login{
   text-align:center;
-  padding:20px;
+  margin-top:40px;
 }
 
 input{
@@ -13,32 +18,59 @@ input{
 
 button{
   padding:10px 15px;
-  margin:5px;
   font-size:18px;
+  margin:5px;
   cursor:pointer;
 }
 
-.buttons{
-  display:none;
+/* STUDENT CONTROLS */
+#controls{
+  text-align:center;
   margin:20px;
 }
 
-.green{ background:#16a34a; color:white; }
-.red{ background:#dc2626; color:white; }
+.plus{
+  background:#16a34a;
+  color:white;
+}
 
-.players{
-  margin-top:20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+.minus{
+  background:#dc2626;
+  color:white;
+}
+
+/* BOARD */
+#board{
+  padding:20px;
+}
+
+.row{
+  display:flex;
+  align-items:center;
   gap:10px;
+  margin-bottom:12px;
 }
 
-.player{
-  padding:15px;
+.name{
+  width:120px;
+}
+
+.bar-wrap{
+  flex:1;
+  background:#1f2937;
+  height:20px;
   border-radius:10px;
-  background:#1e293b;
+  overflow:hidden;
 }
 
-.player.green{ border:2px solid #16a34a; }
-.player.red{ border:2px solid #dc2626; }
-.player.gray{ border:2px solid #64748b; }
+.bar{
+  height:100%;
+  background:linear-gradient(90deg,#22c55e,#3b82f6);
+  width:50%;
+  transition:0.3s;
+}
+
+.score{
+  width:40px;
+  text-align:right;
+}

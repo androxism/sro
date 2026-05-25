@@ -93,7 +93,7 @@ db.ref("players").on("value", snap => {
             <div class="bar" style="width:${width}%"></div>
           </div>
 
-          <div class="score">${score}/30</div>
+          <div class="score">${score}</div>
         </div>
       `;
     });

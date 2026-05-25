@@ -24,22 +24,20 @@ button{
 }
 
 /* CONTROLS */
-/* CONTROLS */
 #controls{
   display:flex;
-  width:100%;
-  gap:10px;
-  padding:10px;
-  box-sizing:border-box;
+  width:100vw;
+  height:50vh;
+  margin:0;
 }
 
 #controls button{
-  flex:1;
-  height:120px;
-  font-size:48px;
+  width:50%;
+  height:100%;
   border:none;
-  border-radius:16px;
+  font-size:120px;
   font-weight:bold;
+  cursor:pointer;
 }
 
 .plus{
@@ -51,6 +49,7 @@ button{
   background:#dc2626;
   color:white;
 }
+
 /* ADMIN */
 #admin{
   text-align:center;
